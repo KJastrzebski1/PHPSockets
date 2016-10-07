@@ -1,0 +1,14 @@
+#chat{
+    width: 500px;
+    height: 300px;
+    overflow-y: auto;
+    border:2px solid black;
+}
+#chat p{
+    margin: 2px;
+}
+
+.emoji{
+    height: 32px;
+    width: 32px;
+}
