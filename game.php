@@ -16,7 +16,10 @@
         <link rel="stylesheet" href="public/style.css">
     </head>
     <body>
+        <?php $conf = include("conf.php"); ?>
+        
         <script>
+            
             $(document).ready(function () {
                 var gameServer;
                 if ("WebSocket" in window)
@@ -25,18 +28,19 @@
 
                     // Let us open a web socket
 
-                    gameServer = new WebSocket("ws://192.168.0.102:8080/gameserver");
+                    gameServer = new WebSocket("ws://<?php echo $conf["IP"];?>:<?php echo $conf["port"] ?>/gameserver");
                     gameServer.onopen = function () {
                         //alert("elo");
-                        //console.log(mousePos);
-                        gameServer.send(JSON.stringify(mousePos));
+                        //console.log(playerStats);
+                        //gameServer.send(JSON.stringify(playerStats));
                     }
                     gameServer.onmessage = function (msg) {
                         var player = JSON.parse(msg.data);
                         var time = new Date().getTime();
                         console.log(time);
-                        console.log(player.timestamp);
-                        $("#game").html((player.timestamp-time));
+                        console.log(playerStats.timestamp);
+                        var ping = time - playerStats.timestamp;
+                        $("#game").html((ping));
                         if($("#player-"+player.id).length){
                             $("#player-"+player.id).css({"top" : player.y-25, "left" : player.x-25});
                             
@@ -55,7 +59,7 @@
                 //WebSocketTest();
 
 
-                var mousePos;
+                var playerStats;
 
                 document.onmousemove = handleMouseMove;
                 setInterval(getMousePosition, 10); // setInterval repeats every X ms
@@ -81,21 +85,21 @@
                                 (doc && doc.clientTop || body && body.clientTop || 0);
                     }
 
-                    mousePos = {
+                    playerStats = {
                         x: event.pageX,
                         y: event.pageY
                     };
                 }
                 function getMousePosition() {
-                    var pos = mousePos;
+                    var pos = playerStats;
                     if (!pos) {
                         // We haven't seen any movement yet
                     } else {
 
                         document.Form1.posx.value = pos.x;
                         document.Form1.posy.value = pos.y;
-                        gameServer.send(JSON.stringify(mousePos));
-
+                        gameServer.send(JSON.stringify(playerStats));
+                        playerStats.timestamp = new Date().getTime();
                     }
                 }
 

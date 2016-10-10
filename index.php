@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="public/style.css">
     </head>
     <body>
+        <?php $conf = include("conf.php"); ?>
         <script>
             $(document).ready(function () {
                 var ws;
@@ -26,7 +27,7 @@
                     // Let us open a web socket
                     
                     
-                    ws = new WebSocket("ws://192.168.0.102:8080/server");
+                    ws = new WebSocket("ws://<?php echo $conf["IP"];?>:<?php echo $conf["port"] ?>/server");
                     ws.onopen = function ()
                     {
                         $("#chat").append("<p>Welcome to the chat.</p>");
