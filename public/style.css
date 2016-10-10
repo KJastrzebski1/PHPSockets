@@ -1,8 +1,9 @@
-#chat{
-    width: 500px;
+#chat, #game{
+    width: 460px;
     height: 300px;
     overflow-y: auto;
     border:2px solid black;
+    display: inline-block;
 }
 #chat p{
     margin: 2px;
@@ -11,4 +12,12 @@
 .emoji{
     height: 32px;
     width: 32px;
+}
+
+.player{
+    position: fixed;
+    height: 50px;
+    width: 50px;
+    border: 2px solid red;
+    border-radius: 50%;
 }

@@ -24,14 +24,15 @@
                     //alert("WebSocket is supported by your Browser!");
 
                     // Let us open a web socket
+                    
+                    
                     ws = new WebSocket("ws://192.168.0.102:8080/server");
-
                     ws.onopen = function ()
                     {
                         $("#chat").append("<p>Welcome to the chat.</p>");
                         // Web Socket is connected, send data using send()
                         //ws.send("Message to send");
-                        //alert("Message is sent...");
+                        //alert("Chat is open");
                     };
 
                     ws.onmessage = function (evt)
@@ -52,6 +53,7 @@
                     alert("WebSocket NOT supported by your Browser!");
                 }
                 //WebSocketTest();
+                
                 $("#send").click(function () {
                     var text = $("#chat_input").val();
                     //$("#chat").append("<p>" + text + "</p>");
@@ -59,11 +61,13 @@
                         ws.send(text);
                     }
                 });
+                
             })
 
         </script>
         <div id="chat">
         </div>
         <input id="chat_input" type="text"><button id="send">Send</button>
+        <a href="game.php">Go to Game</a>
     </body>
 </html>
